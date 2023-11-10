@@ -154,11 +154,14 @@ body{
     border: 1px solid red;
     font-size: 18px;
     font-weight: 400;
+
+    display: none;
     
 }
 
 .snow-info-parent {
-    display: flex;
+    /*display: flex;*/
+    display: none;
 }
 
 .snow-info {
@@ -172,11 +175,18 @@ body{
 
 }
 
+.col-parent { 
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 20px;
+}
+
 .col { 
     display: flex;
     align-items: center;
     text-align: left;
-    display: none;
+    /*display: none;*/
 }
 
 .col img {
