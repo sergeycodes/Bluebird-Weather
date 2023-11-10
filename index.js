@@ -1,11 +1,25 @@
 const apiKey = "c587da6bd825cbfd958f23736f930a13";
 const apiUrl = "https://api.openweathermap.org/data/2.5/weather?q=";
+const geoCodeUrl = "https://api.openweathermap.org/geo/1.0/direct?q=";
+const units = "imperial";
 
 const searchBox = document.querySelector(".search input");
 const searchBtn = document.querySelector(".search button");
 
 async function checkWeather(city) {
-    const response = await fetch(apiUrl + city + "&appid=" + apiKey + "&units=imperial");
+    /*
+    const geoResponse = await fetch(geoCodeUrl + city + "&appid=" + apiKey);
+    if(geoResponse.status == 404) {
+        document.querySelector(".error").style.display = "block";
+        document.querySelector(".weather").style.display = "none";
+        return;
+    }
+    var geoData = await geoResponse.json();
+    console.log(geoData);
+    const lat = geoData[0].lat;
+    const lon = geoData[0].lon;
+    */
+    const response = await fetch(apiUrl + city + "&appid=" + apiKey + "&units=" + units);
 
     if(response.status == 404) {
         document.querySelector(".error").style.display = "block";
@@ -14,11 +28,20 @@ async function checkWeather(city) {
     }
 
     var data = await response.json();
+
+    console.log(data);
     
     document.querySelector(".temp").innerHTML = Math.round(data.main.temp) + "°F";
     document.querySelector(".city").innerHTML = data.name;
     document.querySelector(".humidity").innerHTML = data.main.humidity + "%";
     document.querySelector(".wind").innerHTML = data.wind.speed + " mph";
+
+    document.querySelector(".s-current").innerHTML = data.snow + " mm";
+    console.log(data.snow);
+    document.querySelector(".s-3h").innerHTML = data.snow + " mm";
+
+    document.querySelector(".s-deep").innerHTML = data.snow_deep + " cm";
+
 
     const weatherCondition = data.weather[0].main;
     if(weatherCondition == "Clouds") {
